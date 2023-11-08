@@ -1,0 +1,4 @@
+import socket
+
+host_ip = '127.0.0.1'
+host_port = 2222
