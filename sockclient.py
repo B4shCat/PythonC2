@@ -1,5 +1,6 @@
 import socket
 
+# Forms connection to server with IP and port
 def session_handler():
     print(f'[+] Connection to {host_ip}.')
     sock.connect((host_ip, host_port))

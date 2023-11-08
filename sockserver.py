@@ -1,5 +1,6 @@
 import socket
 
+# Binds host ip and port to the socket and begins listening for a connection
 def listen_handler():
     sock.bind((host_ip, host_port))
     print('[+] Awaiting connection from client...')
