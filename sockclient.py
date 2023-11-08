@@ -5,6 +5,11 @@ def session_handler():
     print(f'[+] Connection to {host_ip}.')
     sock.connect((host_ip, host_port))
     print(f'[+] Connected to {host_ip}.')
+    # message must be decoded since it is sent in bytes
+    message = sock.recv(1024).decode()
+    print(message)
+    message = input('Message to send #> ')
+    sock.send(message.encode())
     sock.close()
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
