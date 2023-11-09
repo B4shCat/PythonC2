@@ -30,6 +30,9 @@ def listen_handler():
             print("\n[+] Keyboard Interrupt issued")
             remote_target.close()
             break
+        except Exception:
+            remote_target.close()
+            break
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 host_ip = '127.0.0.1'
