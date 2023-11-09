@@ -7,12 +7,18 @@ def listen_handler():
     sock.listen()
     remote_target, remote_ip = sock.accept()
     print(f'[+] Connection received from {remote_ip[0]}')
-    message = input('Message to send #> ')
-    # Message must be encoded so both sides know how to read it
-    remote_target.send(message.encode())
-    response = remote_target.recv(1024).decode()
-    print(response)
-    remote_target.close()
+    while True:
+        # try/catch to ensure connection is closed
+        try:
+            message = input('Message to send #> ')
+            # Message must be encoded so both sides know how to read it
+            remote_target.send(message.encode())
+            response = remote_target.recv(1024).decode()
+            print(response)
+        except KeyboardInterrupt:
+            print("\n[+] Keyboard Interrupt issued")
+            remote_target.close()
+            break
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 host_ip = '127.0.0.1'
