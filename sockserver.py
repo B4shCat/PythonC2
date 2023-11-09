@@ -11,9 +11,20 @@ def listen_handler():
         # try/catch to ensure connection is closed
         try:
             message = input('Message to send #> ')
+            # Exit message handler
+            if message.lower() == 'exit':
+                print('[+] Closing connecition...')
+                remote_target.send(message.encode())
+                remote_target.close()
+                break
             # Message must be encoded so both sides know how to read it
             remote_target.send(message.encode())
             response = remote_target.recv(1024).decode()
+            # exit message from remote host handler
+            if response.lower() == 'exit':
+                print('[+] Connection closed from remote client')
+                remote_target.close()
+                break
             print(response)
         except KeyboardInterrupt:
             print("\n[+] Keyboard Interrupt issued")

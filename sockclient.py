@@ -9,8 +9,19 @@ def session_handler():
     while True:
             try:
                 message = sock.recv(1024).decode()
+                # exit message handler
+                if message.lower() == 'exit':
+                    print('[+] Connection closed from remote host')
+                    sock.close()
+                    break
                 print(message)
                 message = input('Message to send #> ')
+                # Exit message handler
+                if message.lower() == 'exit':
+                    print('[+] Closing connection...')
+                    sock.send(message.encode())
+                    sock.close()
+                    break
                 sock.send(message.encode())
             except KeyboardInterrupt:
                 print("\n[+] Keyboard Interrupt Issued")
