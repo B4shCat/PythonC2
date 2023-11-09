@@ -17,6 +17,7 @@ def listen_handler():
                 remote_target.send(message.encode())
                 remote_target.close()
                 break
+
             # Message must be encoded so both sides know how to read it
             remote_target.send(message.encode())
             response = remote_target.recv(1024).decode()
@@ -25,11 +26,13 @@ def listen_handler():
                 print('[+] Connection closed from remote client')
                 remote_target.close()
                 break
+
             print(response)
         except KeyboardInterrupt:
             print("\n[+] Keyboard Interrupt issued")
             remote_target.close()
             break
+
         except Exception:
             remote_target.close()
             break

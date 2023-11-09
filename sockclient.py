@@ -5,15 +5,17 @@ def session_handler():
     print(f'[+] Connection to {host_ip}.')
     sock.connect((host_ip, host_port))
     print(f'[+] Connected to {host_ip}.')
-    # message must be decoded since it is sent in bytes
     while True:
+            # Try/Catch to ensure connection is closed in the case of any errors
             try:
+                # message must be decoded since it is sent in bytes
                 message = sock.recv(1024).decode()
                 # exit message handler
                 if message.lower() == 'exit':
                     print('[+] Connection closed from remote host')
                     sock.close()
                     break
+
                 print(message)
                 message = input('Message to send #> ')
                 # Exit message handler
@@ -22,11 +24,14 @@ def session_handler():
                     sock.send(message.encode())
                     sock.close()
                     break
+
                 sock.send(message.encode())
+
             except KeyboardInterrupt:
                 print("\n[+] Keyboard Interrupt Issued")
                 sock.close()
                 break
+
             except Exception:
                 sock.close()
                 break
