@@ -1,6 +1,7 @@
 import socket
 import subprocess
 import os
+import sys
 
 # Forms connection to server with IP and port
 def session_handler():
@@ -38,6 +39,6 @@ def session_handler():
                 break
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host_ip = '127.0.0.1'
-host_port = 2222
+host_ip =sys.argv[1] 
+host_port = int(sys.argv[2])
 session_handler()
