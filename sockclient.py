@@ -38,7 +38,8 @@ def session_handler():
                 sock.close()
                 break
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host_ip =sys.argv[1] 
-host_port = int(sys.argv[2])
-session_handler()
+if __name__ == '__main__':
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    host_ip =sys.argv[1] 
+    host_port = int(sys.argv[2])
+    session_handler()
