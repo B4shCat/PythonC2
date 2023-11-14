@@ -51,6 +51,17 @@ if __name__ == '__main__':
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         host_ip = sys.argv[1] 
         host_port = int(sys.argv[2])
+
+        print(' _______                   __   ______') 
+        print('|       \                 |  \ /      \\  2') 
+        print('| $$$$$$$\  ______    ____| $$|  $$$$$$\\')
+        print('| $$__/ $$ |      \  /      $$| $$   \$$')
+        print('| $$    $$  \$$$$$$\|  $$$$$$$| $$     By B4shCat') 
+        print('| $$$$$$$\ /      $$| $$  | $$| $$   __') 
+        print('| $$__/ $$|  $$$$$$$| $$__| $$| $$__/  \\')
+        print('| $$    $$ \$$    $$ \$$    $$ \$$    $$')
+        print(' \$$$$$$$   \$$$$$$$  \$$$$$$$  \$$$$$$') 
+
         listen_handler()
     except IndexError:
         print('[-] Command line arguments not supplied')
