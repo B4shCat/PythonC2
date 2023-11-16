@@ -62,8 +62,8 @@ def session_handler():
 if __name__ == '__main__':
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        host_ip =sys.argv[1] 
-        host_port = int(sys.argv[2])
+        host_ip = '127.0.0.1'
+        host_port = 2222
         session_handler()
     except IndexError:
         print('[-] Command line arguments not supplied')
