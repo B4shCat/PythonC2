@@ -15,13 +15,13 @@ def banner():
 
 
 
-def comm_in(remote_target):
+def comm_in(targ_id):
     print(f'[+] Awaiting response...')
-    response = remote_target.recv(1024).decode()
+    response = targ_id.recv(1024).decode()
     return response
 
-def comm_out(remote_target, message):
-    remote_target.send(message.encode())
+def comm_out(targ_id, message):
+    targ_id.send(message.encode())
 
 def listen_handler():
     sock.bind((host_ip, int(host_port)))
